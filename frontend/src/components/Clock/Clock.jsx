@@ -1,51 +1,95 @@
-/* filepath: /home/aditya-raut/Desktop/Spark/pragyaa/frontend/src/components/Clock/Clock.jsx */
 import React from "react";
 import Countdown from "react-countdown";
-import "./Clock.css";
 
 function Clock() {
   // Custom renderer for countdown
   const renderer = ({ days, hours, minutes, seconds, completed }) => {
     if (completed) {
-      return <span className="countdown-timer">EVENT STARTED!</span>;
+      return (
+        <span className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-widest bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 bg-clip-text text-transparent animate-pulse">
+          EVENT STARTED!
+        </span>
+      );
     } else {
       return (
-        <span className="countdown-timer">
-          {String(days).padStart(2, '0')} : {String(hours).padStart(2, '0')} : {String(minutes).padStart(2, '0')} : {String(seconds).padStart(2, '0')}
-        </span>
+        <div className="flex items-center justify-center gap-2 md:gap-4">
+          <div className="flex flex-col items-center">
+            <span className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tabular-nums">
+              {String(days).padStart(2, "0")}
+            </span>
+            <span className="text-xs md:text-sm mt-1 text-gray-400 tracking-wider">
+              DAYS
+            </span>
+          </div>
+
+          <span className="text-3xl md:text-4xl lg:text-5xl text-purple-400 font-light">
+            :
+          </span>
+
+          <div className="flex flex-col items-center">
+            <span className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tabular-nums">
+              {String(hours).padStart(2, "0")}
+            </span>
+            <span className="text-xs md:text-sm mt-1 text-gray-400 tracking-wider">
+              HOURS
+            </span>
+          </div>
+
+          <span className="text-3xl md:text-4xl lg:text-5xl text-purple-400 font-light">
+            :
+          </span>
+
+          <div className="flex flex-col items-center">
+            <span className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tabular-nums">
+              {String(minutes).padStart(2, "0")}
+            </span>
+            <span className="text-xs md:text-sm mt-1 text-gray-400 tracking-wider">
+              MINUTES
+            </span>
+          </div>
+
+          <span className="text-3xl md:text-4xl lg:text-5xl text-purple-400 font-light">
+            :
+          </span>
+
+          <div className="flex flex-col items-center">
+            <span className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tabular-nums">
+              {String(seconds).padStart(2, "0")}
+            </span>
+            <span className="text-xs md:text-sm mt-1 text-gray-400 tracking-wider">
+              SECONDS
+            </span>
+          </div>
+        </div>
       );
     }
   };
 
   return (
-    <div className="clock-container">
-      {/* Countdown Timer */}
-      <div className="countdown-box">
-        {/* Corner decorations */}
-        <div className="corner-tl"></div>
-        <div className="corner-tr"></div>
-        <div className="corner-bl"></div>
-        <div className="corner-br"></div>
-
-        <Countdown
-          date={new Date("2026-02-22T00:00:00")}
-          renderer={renderer}
-        />
-
-        <div className="time-labels">
-          <span className="label-day">DAYS</span>
-          <span className="label-hours">HOURS</span>
-          <span className="label-minutes">MINUTES</span>
-          <span className="label-seconds">SECONDS</span>
-        </div>
-
-        {/* Mobile: Dates below the clock */}
-        <div className="dates-mobile">
-          <div className="date-numbers">
-            21<b>ST</b> - 22<b>ND</b> - 23<b>RD</b>
+    <div className="flex justify-center items-center py-8 px-4">
+      {/* Countdown Box with enhanced styling */}
+      <div className="relative w-full max-w-4xl">
+        {/* Main countdown container */}
+        <div className="relative p-8 md:p-12">
+          {/* Countdown Timer */}
+          <div className="flex justify-center mb-8">
+            <Countdown
+              date={new Date("2026-02-22T00:00:00")}
+              renderer={renderer}
+            />
           </div>
-          <div className="date-year">
-            FEBRUARY <span>2026</span>
+
+          {/* Event Dates */}
+          <div className="text-center mt-8 pt-8 border-t border-white/10">
+            <div className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-2">
+              21<sup className="text-sm md:text-base">ST</sup> - 22
+              <sup className="text-sm md:text-base">ND</sup> - 23
+              <sup className="text-sm md:text-base">RD</sup>
+            </div>
+            <div className="text-lg md:text-xl lg:text-2xl text-gray-300 tracking-widest">
+              FEBRUARY{" "}
+              <span className="text-purple-400 font-semibold">2026</span>
+            </div>
           </div>
         </div>
       </div>

@@ -15,7 +15,7 @@ export default function MainContent() {
       </h1>
 
       <p className="text-xl md:text-2xl tracking-[3px] my-5 uppercase">
-        "THE FUTURE IS NOW"
+        "BRIGHTER THAN EVER BEFORE"
       </p>
 
       <Clock />

@@ -1,5 +1,6 @@
+
 import React, { useEffect, useRef } from "react";
-import * as THREE from "three";
+import * as THREE from "https://cdn.skypack.dev/three@0.148.0";
 
 const ThreeD = () => {
   const canvasRef = useRef(null);
@@ -9,33 +10,62 @@ const ThreeD = () => {
       width: window.innerWidth,
       height: window.innerHeight,
     };
-
-    // Colors
+    const white = 0xffffff;
     const black = 0x000000;
-    const cyan = 0x00ffff;
-    const purple = 0x9d00ff;
-    const blue = 0x0066ff;
+    const red = 0xff0000;
+    const pink = 0xff7dcd;
+    const lightRed = 0xff9797;
 
     // SCENE
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(black);
-    scene.fog = new THREE.FogExp2(black, 0.01);
 
-    // LIGHTING
-    const ambientLight = new THREE.AmbientLight(0x222222);
-    scene.add(ambientLight);
+    // LIGHT SCENE1
+    let lightTopColor = new THREE.Color(red);
+    let lightBackColor = new THREE.Color(red);
+    let rectLightColor = new THREE.Color(red);
 
-    const pointLight1 = new THREE.PointLight(cyan, 1.5);
-    pointLight1.position.set(10, 10, 10);
-    scene.add(pointLight1);
+    const lightTop = new THREE.PointLight(lightTopColor, 10);
+    lightTop.position.set(5, 5, 2);
+    lightTop.castShadow = true;
+    lightTop.shadow.mapSize.width = lightTop.shadow.mapSize.height = 10000;
+    lightTop.penumbra = 0.5;
 
-    const pointLight2 = new THREE.PointLight(purple, 1.5);
-    pointLight2.position.set(-10, -10, 5);
-    scene.add(pointLight2);
+    const lightBack = new THREE.SpotLight(lightBackColor, 2);
+    lightBack.position.set(0, -3, -1);
+
+    const rectLight = new THREE.RectAreaLight(rectLightColor, 20, 2, 2);
+    rectLight.position.set(1, 1, 1);
+    rectLight.lookAt(0, 0, 0);
+
+    scene.add(lightTop, lightBack, rectLight);
+
+    // LIGHT SCENE2
+    const targetScene2 = new THREE.Object3D();
+    targetScene2.position.set(0, -10, 0);
+    scene.add(targetScene2);
+
+    const lightRight = new THREE.SpotLight(pink, 1);
+    lightRight.position.set(8, 0, 0);
+    lightRight.target = targetScene2;
+
+    const lightLeft = new THREE.SpotLight(pink, 1);
+    lightLeft.position.set(-8, 0, 0);
+    lightLeft.target = targetScene2;
+
+    const lightMidSpot = new THREE.SpotLight(lightRed, 2);
+    lightMidSpot.position.set(0, -5, 20);
+    lightMidSpot.target = targetScene2;
+
+    const lightMidPoint = new THREE.PointLight(lightRed, 0.05);
+    lightMidPoint.position.set(0, 0, -23);
+
+    scene.add(lightRight, lightLeft, lightMidSpot, lightMidPoint);
 
     // CAMERA
-    const camera = new THREE.PerspectiveCamera(60, sizes.width / sizes.height, 0.1, 1000);
-    camera.position.set(0, 0, 30);
+    const updateCamPos = new THREE.Vector3(-0.3, 0, 5);
+    const camera = new THREE.PerspectiveCamera(25, sizes.width / sizes.height, 1, 500);
+    camera.position.set(-0.3, 0, 5);
     scene.add(camera);
 
     // RENDERER
@@ -47,173 +77,107 @@ const ThreeD = () => {
     });
     renderer.setSize(sizes.width, sizes.height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setClearAlpha(0);
+    renderer.shadowMap.enabled = false;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.shadowMap.needsUpdate = true;
 
-    // NETWORK STRUCTURE (initially invisible)
-    const nodes = [];
-    const connections = [];
-    const nodeCount = 150;
+    // SCENE1 OBJECTS
+    function spaceRandom(num = 1) {
+      return -Math.random() * num + Math.random() * num;
+    }
 
-    // Create network nodes (invisible initially)
-    for (let i = 0; i < nodeCount; i++) {
-      const x = (Math.random() - 0.5) * 60;
-      const y = (Math.random() - 0.5) * 60;
-      const z = (Math.random() - 0.5) * 40;
-
-      const position = new THREE.Vector3(x, y, z);
-      const originalPosition = new THREE.Vector3(x, y, z);
-
-      nodes.push({ 
-        position: position,
-        originalPosition: originalPosition,
-        velocity: new THREE.Vector3(0, 0, 0)
+    // Cubes
+    const cubesGroup = new THREE.Object3D();
+    scene.add(cubesGroup);
+    function generateCube() {
+      const geometry = new THREE.IcosahedronGeometry(1);
+      const material = new THREE.MeshStandardMaterial({
+        color: 0x111111,
+        roughness: 0.4,
+        metalness: 0.5,
       });
+      const cube = new THREE.Mesh(geometry, material);
+      cube.speedRotation = Math.random() * 0.1;
+      cube.positionX = spaceRandom();
+      cube.positionY = spaceRandom();
+      cube.positionZ = spaceRandom();
+      cube.castShadow = true;
+      cube.receiveShadow = true;
+      const newScaleValue = spaceRandom(0.3);
+      cube.scale.set(newScaleValue, newScaleValue, newScaleValue);
+      cube.rotation.x = spaceRandom((180 * Math.PI) / 180);
+      cube.rotation.y = spaceRandom((180 * Math.PI) / 180);
+      cube.rotation.z = spaceRandom((180 * Math.PI) / 180);
+      cube.position.set(cube.positionX, cube.positionY, cube.positionZ);
+      cubesGroup.add(cube);
     }
 
-    // Create connections between nearby nodes
-    for (let i = 0; i < nodes.length; i++) {
-      for (let j = i + 1; j < nodes.length; j++) {
-        const distance = nodes[i].position.distanceTo(nodes[j].position);
-        
-        if (distance < 18) {
-          const points = [];
-          points.push(nodes[i].position);
-          points.push(nodes[j].position);
-
-          const geometry = new THREE.BufferGeometry().setFromPoints(points);
-          const material = new THREE.LineBasicMaterial({
-            color: cyan,
-            transparent: true,
-            opacity: 0,
-          });
-          const line = new THREE.Line(geometry, material);
-          scene.add(line);
-          
-          connections.push({ 
-            line, 
-            geometry,
-            node1: nodes[i], 
-            node2: nodes[j]
-          });
-        }
-      }
+    // Particles
+    const particlesGroup = new THREE.Object3D();
+    scene.add(particlesGroup);
+    function generateParticle() {
+      const geometry = new THREE.CircleGeometry(0.1, 5);
+      const material = new THREE.MeshPhysicalMaterial({
+        color: white,
+        side: THREE.DoubleSide,
+      });
+      const particle = new THREE.Mesh(geometry, material);
+      particle.position.set(spaceRandom(2), spaceRandom(2), spaceRandom(2));
+      particle.rotation.set(spaceRandom(), spaceRandom(), spaceRandom());
+      const scale = 0.001 + Math.abs(spaceRandom(0.03));
+      particle.scale.set(scale, scale, scale);
+      particle.speedValue = spaceRandom(1);
+      particlesGroup.add(particle);
     }
 
-    // Floating particles in background
-    const particlesGeometry = new THREE.BufferGeometry();
-    const particlesCount = 1500;
-    const posArray = new Float32Array(particlesCount * 3);
-
-    for (let i = 0; i < particlesCount * 3; i++) {
-      posArray[i] = (Math.random() - 0.5) * 100;
-    }
-
-    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-    const particlesMaterial = new THREE.PointsMaterial({
-      size: 0.05,
-      color: cyan,
-      transparent: true,
-      opacity: 0.2,
-    });
-
-    const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
-    scene.add(particlesMesh);
-
-    // MOUSE INTERACTION
+    // MOUSE EVENT
     const mouse = new THREE.Vector2();
-    const mouseWorld = new THREE.Vector3();
-
     function onMouseMove(event) {
       mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-      mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+      mouse.y = (event.clientY / window.innerHeight) * 2 + 1;
     }
     window.addEventListener("mousemove", onMouseMove, false);
 
+    // TOUCH EVENT FOR MOBILE
     function onTouchMove(event) {
       mouse.x = (event.changedTouches[0].clientX / window.innerWidth) * 2 - 1;
-      mouse.y = -(event.changedTouches[0].clientY / window.innerHeight) * 2 + 1;
+      mouse.y = (event.changedTouches[0].clientY / window.innerHeight) * 2 + 1;
     }
     window.addEventListener("touchmove", onTouchMove, false);
 
     // ANIMATION
     const animate = () => {
-      const time = performance.now() * 0.001;
+      particlesGroup.rotation.y += 0.004;
 
-      // Convert mouse position to world coordinates
-      mouseWorld.set(
-        mouse.x * 15,
-        mouse.y * 15,
-        0
-      );
-
-      // Apply attraction force to nodes near mouse
-      nodes.forEach((node) => {
-        const distanceToMouse = node.position.distanceTo(mouseWorld);
-        
-        if (distanceToMouse < 25) {
-          // Attraction force
-          const force = new THREE.Vector3()
-            .subVectors(mouseWorld, node.position)
-            .normalize()
-            .multiplyScalar(0.4);
-          
-          node.velocity.add(force);
-        }
-
-        // Return to original position
-        const returnForce = new THREE.Vector3()
-          .subVectors(node.originalPosition, node.position)
-          .multiplyScalar(0.05);
-        
-        node.velocity.add(returnForce);
-
-        // Apply damping
-        node.velocity.multiplyScalar(0.92);
-
-        // Update position
-        node.position.add(node.velocity);
+      const time = performance.now() * 0.0003;
+      particlesGroup.children.forEach((each) => {
+        each.rotation.x += each.speedValue / 10;
+        each.rotation.y += each.speedValue / 10;
+        each.rotation.z += each.speedValue / 10;
       });
 
-      // Update connections and make them visible near mouse
-      connections.forEach(conn => {
-        const midPoint = new THREE.Vector3()
-          .addVectors(conn.node1.position, conn.node2.position)
-          .multiplyScalar(0.5);
-        
-        const distanceToMouse = midPoint.distanceTo(mouseWorld);
-        
-        // Make network visible when mouse is near
-        if (distanceToMouse < 25) {
-          const opacity = Math.max(0, 1 - distanceToMouse / 25);
-          conn.line.material.opacity = opacity * 0.7;
-          
-          // Change color based on distance
-          if (distanceToMouse < 12) {
-            conn.line.material.color.setHex(purple);
-          } else {
-            conn.line.material.color.setHex(cyan);
-          }
-        } else {
-          conn.line.material.opacity = 0;
-        }
-
-        // Update line geometry
-        const points = [conn.node1.position, conn.node2.position];
-        conn.geometry.setFromPoints(points);
+      cubesGroup.children.forEach((each) => {
+        each.rotation.x += 0.008;
+        each.rotation.y += 0.005;
+        each.rotation.z += 0.003;
+        each.position.x = Math.sin(time * each.positionZ) * each.positionY;
+        each.position.y = Math.cos(time * each.positionX) * each.positionZ;
+        each.position.z = Math.sin(time * each.positionY) * each.positionX;
       });
 
-      // Rotate background particles
-      particlesMesh.rotation.y += 0.0003;
-      particlesMesh.rotation.x += 0.0002;
+      cubesGroup.rotation.y -= (mouse.x * 4 + cubesGroup.rotation.y) * 0.1;
+      cubesGroup.rotation.x -= (-mouse.y * 4 + cubesGroup.rotation.x) * 0.1;
 
-      // Gentle camera movement
-      camera.position.x += (mouse.x * 2 - camera.position.x) * 0.03;
-      camera.position.y += (mouse.y * 2 - camera.position.y) * 0.03;
-      camera.lookAt(0, 0, 0);
+      camera.position.lerp(updateCamPos, 0.05);
 
       renderer.render(scene, camera);
       requestAnimationFrame(animate);
     };
 
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    Array(30).fill().forEach(generateCube);
+    Array(200).fill().forEach(generateParticle);
     animate();
 
     // Handle window resize
@@ -228,14 +192,14 @@ const ThreeD = () => {
     window.addEventListener("resize", onWindowResize);
 
     return () => {
+      // Cleanup on component unmount
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("touchmove", onTouchMove);
       window.removeEventListener("resize", onWindowResize);
-      renderer.dispose();
     };
   }, []);
 
-  return <canvas ref={canvasRef} className="webgl" style={{ width: '100%', height: '100%', display: 'block' }} />;
+  return <canvas ref={canvasRef} className="webgl" style={{ width: '100%', height: '100%' }} />;
 };
 
 export default ThreeD;
