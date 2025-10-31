@@ -1,4 +1,5 @@
 import React from 'react';
+import LetterGlitch from './LetterGlitch';
 
 export default function GamingButton({ 
   item, 
@@ -16,7 +17,8 @@ export default function GamingButton({
       glow: 'drop-shadow-[0_0_20px_rgba(0,255,255,0.9)] group-hover:drop-shadow-[0_0_35px_rgba(0,255,255,1)]',
       innerGlow: 'shadow-[inset_0_0_20px_rgba(0,255,255,0.3)]',
       pulse: 'shadow-[0_0_30px_rgba(0,255,255,0.6)]',
-      hex: '#00ffff'
+      hex: '#00ffff',
+      glitchColors: ['#00ffff', '#0099cc', '#00cccc']
     },
     purple: {
       border: 'border-purple-500/40 hover:border-purple-500',
@@ -27,7 +29,8 @@ export default function GamingButton({
       glow: 'drop-shadow-[0_0_20px_rgba(168,85,247,0.9)] group-hover:drop-shadow-[0_0_35px_rgba(168,85,247,1)]',
       innerGlow: 'shadow-[inset_0_0_20px_rgba(168,85,247,0.3)]',
       pulse: 'shadow-[0_0_30px_rgba(168,85,247,0.6)]',
-      hex: '#a855f7'
+      hex: '#a855f7',
+      glitchColors: ['#a855f7', '#9333ea', '#c084fc']
     },
     pink: {
       border: 'border-pink-500/40 hover:border-pink-500',
@@ -38,7 +41,8 @@ export default function GamingButton({
       glow: 'drop-shadow-[0_0_20px_rgba(236,72,153,0.9)] group-hover:drop-shadow-[0_0_35px_rgba(236,72,153,1)]',
       innerGlow: 'shadow-[inset_0_0_20px_rgba(236,72,153,0.3)]',
       pulse: 'shadow-[0_0_30px_rgba(236,72,153,0.6)]',
-      hex: '#ec4899'
+      hex: '#ec4899',
+      glitchColors: ['#ec4899', '#f472b6', '#db2777']
     },
     orange: {
       border: 'border-orange-500/40 hover:border-orange-500',
@@ -49,7 +53,8 @@ export default function GamingButton({
       glow: 'drop-shadow-[0_0_20px_rgba(249,115,22,0.9)] group-hover:drop-shadow-[0_0_35px_rgba(249,115,22,1)]',
       innerGlow: 'shadow-[inset_0_0_20px_rgba(249,115,22,0.3)]',
       pulse: 'shadow-[0_0_30px_rgba(249,115,22,0.6)]',
-      hex: '#f97316'
+      hex: '#f97316',
+      glitchColors: ['#f97316', '#fb923c', '#ea580c']
     }
   };
 
@@ -68,6 +73,17 @@ export default function GamingButton({
         transform: 'perspective(1000px) rotateX(0deg)'
       }}
     >
+      {/* LetterGlitch Background Effect */}
+      <div className="absolute inset-0 opacity-20 group-hover:opacity-40 transition-opacity duration-500" style={{ clipPath }}>
+        <LetterGlitch
+          glitchColors={currentColor.glitchColors}
+          glitchSpeed={100}
+          smooth={true}
+          outerVignette={false}
+          centerVignette={false}
+        />
+      </div>
+
       {/* Glitch clone layers */}
       <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 ${currentColor.text} animate-glitch-1 mix-blend-screen pointer-events-none`}
         style={{ clipPath: clipPath }}>
