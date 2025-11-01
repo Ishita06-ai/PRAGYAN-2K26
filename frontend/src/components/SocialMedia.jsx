@@ -1,8 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Youtube, Instagram, Facebook, Linkedin } from "lucide-react";
 
 export default function SocialMedia() {
   const [hoveredIcon, setHoveredIcon] = useState(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    // Trigger animation after component mounts
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 100);
+    
+    return () => clearTimeout(timer);
+  }, []);
 
   const socialLinks = [
     {
@@ -46,10 +56,20 @@ export default function SocialMedia() {
   return (
     <div className="bg-gradient-to-br flex items-center justify-center p-8">
       <div className="flex gap-8 justify-center">
-        {socialLinks.map((social) => {
+        {socialLinks.map((social, index) => {
           const IconComponent = social.icon;
           return (
-            <div key={social.name} className="relative">
+            <div 
+              key={social.name} 
+              className={`relative transform transition-all duration-700 ease-out ${
+                isVisible 
+                  ? 'translate-y-0 opacity-100 scale-100' 
+                  : 'translate-y-12 opacity-0 scale-75'
+              }`}
+              style={{
+                transitionDelay: `${index * 150}ms`
+              }}
+            >
               <a
                 href={social.url}
                 target="_blank"
