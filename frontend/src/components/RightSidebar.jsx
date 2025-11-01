@@ -1,8 +1,21 @@
 import React from "react";
+import { useNavigate } from 'react-router-dom';
 import GamingButton from "./GamingButton";
 
 export default function RightSidebar() {
-  const menuItems = ["ABOUT", "EVENTS", "TEAM", "CONTACT", "LOGIN"];
+  const navigate = useNavigate();
+  
+  const menuItems = [
+    { label: "ABOUT", path: "/about" },
+    { label: "EVENTS", path: "/events" },
+    { label: "TEAM", path: "/team" },
+    { label: "CONTACT", path: "/contact" },
+    { label: "LOGIN", path: "/login" }
+  ];
+
+  const handleNavigation = (path) => {
+    navigate(path);
+  };
 
   return (
     <div className="hidden lg:flex fixed right-5 top-1/2 -translate-y-1/2 z-10 flex-col gap-6">
@@ -19,10 +32,16 @@ export default function RightSidebar() {
         <div className="absolute top-2 left-2 w-1 h-1 bg-purple-400 rounded-full animate-pulse"></div>
       </div>
 
-      {menuItems.map((item, index) => (
-        <div key={item} className="relative flex items-center group">
-          <GamingButton item={item} index={index} side="right" color="purple" />
-
+      {menuItems.map((menuItem, index) => (
+        <div key={menuItem.label} className="relative flex items-center group">
+          <div onClick={() => handleNavigation(menuItem.path)} className="cursor-pointer">
+            <GamingButton 
+              item={menuItem.label} 
+              index={index} 
+              side="right" 
+              color="purple" 
+            />
+          </div>
         </div>
       ))}
 

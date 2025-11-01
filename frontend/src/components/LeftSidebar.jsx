@@ -1,8 +1,21 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import GamingButton from './GamingButton';
 
 export default function LeftSidebar() {
-  const menuItems = ["TOURNAMENTS", "GALLERY", "HACKATHON", "WORKSHOPS", "SPONSORS"];
+  const navigate = useNavigate();
+  
+  const menuItems = [
+    { label: "TOURNAMENTS", path: "/events" },
+    { label: "GALLERY", path: "/gallery" },
+    { label: "HACKATHON", path: "/events" },
+    { label: "WORKSHOPS", path: "/workshops" },
+    { label: "SPONSORS", path: "/sponsors" }
+  ];
+
+  const handleNavigation = (path) => {
+    navigate(path);
+  };
 
   return (
     <div className="hidden lg:flex fixed left-5 top-1/2 -translate-y-1/2 z-10 flex-col gap-6">
@@ -20,14 +33,16 @@ export default function LeftSidebar() {
         <div className="absolute top-2 right-2 w-1 h-1 bg-cyan-400 rounded-full animate-pulse"></div>
       </div>
 
-      {menuItems.map((item, index) => (
-        <div key={item} className="relative flex items-center group">
-          <GamingButton 
-            item={item} 
-            index={index} 
-            side="left" 
-            color="cyan" 
-          />
+      {menuItems.map((menuItem, index) => (
+        <div key={menuItem.label} className="relative flex items-center group">
+          <div onClick={() => handleNavigation(menuItem.path)} className="cursor-pointer">
+            <GamingButton 
+              item={menuItem.label} 
+              index={index} 
+              side="left" 
+              color="cyan" 
+            />
+          </div>
           {/* Connecting line between buttons (except last one) */}
           {index < menuItems.length - 1 && (
             <div className="absolute -bottom-6 -right-6 w-1 h-6 flex flex-col justify-center">

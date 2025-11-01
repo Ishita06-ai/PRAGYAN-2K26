@@ -19,6 +19,22 @@ export default function MainContent() {
       </p>
 
       <Clock />
+
+      {/* Social Media Links */}
+      <div className="flex gap-6 mt-8 justify-center">
+        <a href="https://instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+          <Instagram className="w-8 h-8 hover:text-pink-500 transition-colors" />
+        </a>
+        <a href="https://facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+          <Facebook className="w-8 h-8 hover:text-blue-600 transition-colors" />
+        </a>
+        <a href="https://linkedin.com/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+          <Linkedin className="w-8 h-8 hover:text-blue-700 transition-colors" />
+        </a>
+        <a href="https://youtube.com/" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+          <Youtube className="w-8 h-8 hover:text-red-600 transition-colors" />
+        </a>
+      </div>
     </main>
   );
 }
