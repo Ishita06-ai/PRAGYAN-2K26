@@ -12,8 +12,13 @@ const HomePage = () =>  {
   return (
     <div className="relative min-h-screen bg-black text-white overflow-x-hidden font-sans">
       {/* Background Layer */}
-    
+    <BackgroundLayer />
       
+      {/* MenuBar - Fixed in top right corner */}
+      <div className="fixed top-4 right-4 sm:top-6 sm:right-6 md:top-8 md:right-8 lg:top-10 lg:right-10 z-50">
+        <MenuBar />
+      </div>
+
       {/* Main Layout Container */}
       <div className="relative w-full min-h-screen bg-gradient-to-br to-gray-800 overflow-hidden">
         {/* Content Container - Responsive borders */}
