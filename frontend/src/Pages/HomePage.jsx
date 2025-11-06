@@ -19,9 +19,9 @@ const HomePage = () => {
 
       {/* Main Layout Container */}
       <div className="relative w-full min-h-screen bg-gradient-to-br to-gray-800 overflow-hidden">
-        {/* Corner designs - Responsive scaling */}
+        {/* Corner designs - Hidden on mobile, visible on larger screens */}
         {/* Top-left corner design */}
-        <div className="absolute top-0 left-0 w-48 h-48 xs:w-56 xs:h-56 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 overflow-hidden opacity-80 md:opacity-100">
+        <div className="absolute top-0 left-0 w-48 h-48 xs:w-56 xs:h-56 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 overflow-hidden opacity-80 md:opacity-100 hidden md:block">
           <svg className="absolute top-0 left-0 w-full h-full" viewBox="0 0 384 384">
             <defs>
               <filter id="glow">
@@ -47,7 +47,7 @@ const HomePage = () => {
         </div>
 
         {/* Top-right corner design */}
-        <div className="absolute top-0 right-0 w-48 h-48 xs:w-56 xs:h-56 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 overflow-hidden opacity-80 md:opacity-100">
+        <div className="absolute top-0 right-0 w-48 h-48 xs:w-56 xs:h-56 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 overflow-hidden opacity-80 md:opacity-100 hidden md:block">
           <svg className="absolute top-0 right-0 w-full h-full" viewBox="0 0 384 384">
             <defs>
               <filter id="glowTopRight">
@@ -73,7 +73,7 @@ const HomePage = () => {
         </div>
 
         {/* Bottom-right corner design */}
-        <div className="absolute bottom-0 right-0 w-48 h-48 xs:w-56 xs:h-56 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 overflow-hidden opacity-80 md:opacity-100">
+        <div className="absolute bottom-0 right-0 w-48 h-48 xs:w-56 xs:h-56 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 overflow-hidden opacity-80 md:opacity-100 hidden md:block">
           <svg className="absolute bottom-0 right-0 w-full h-full" viewBox="0 0 384 384">
             <defs>
               <filter id="glowBottomRight">
@@ -99,7 +99,7 @@ const HomePage = () => {
         </div>
 
         {/* Bottom-left corner design */}
-        <div className="absolute bottom-0 left-0 w-48 h-48 xs:w-56 xs:h-56 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 overflow-hidden opacity-80 md:opacity-100">
+        <div className="absolute bottom-0 left-0 w-48 h-48 xs:w-56 xs:h-56 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 overflow-hidden opacity-80 md:opacity-100 hidden md:block">
           <svg className="absolute bottom-0 left-0 w-full h-full" viewBox="0 0 384 384">
             <defs>
               <filter id="glowBottomLeft">
