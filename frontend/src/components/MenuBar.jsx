@@ -87,7 +87,7 @@ const MenuBar = () => {
           {/* Enhanced Background with stronger blur and gradient */}
           <div className="absolute inset-0 bg-gray-900/97 backdrop-blur-[120px] backdrop-saturate-200">
             {/* Animated Background Gradient with blur */}
-            <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/25 via-purple-500/25 to-pink-500/25 animate-gradient-shift blur-3xl"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-red-500/30 via-orange-500/25 to-rose-500/30 animate-gradient-shift blur-3xl"></div>
             
             {/* Multiple blur layers for enhanced effect */}
             <div className="absolute inset-0 backdrop-blur-[80px]"></div>
@@ -101,13 +101,13 @@ const MenuBar = () => {
             <div className={`mb-8 text-center transition-all duration-700 ${
               isMenuOpen ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
             }`}>
-              <h3 className="text-3xl font-bold bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent animate-text-shimmer">
+              <h3 className="text-3xl font-bold bg-gradient-to-r from-red-400 via-orange-400 to-rose-400 bg-clip-text text-transparent animate-text-shimmer">
                 Navigation
               </h3>
               <div className="mt-4 flex items-center justify-center space-x-2">
-                <div className="w-2 h-2 bg-cyan-500 rounded-full animate-bounce-delay-1"></div>
-                <div className="w-2 h-2 bg-purple-500 rounded-full animate-bounce-delay-2"></div>
-                <div className="w-2 h-2 bg-pink-500 rounded-full animate-bounce-delay-3"></div>
+                <div className="w-2 h-2 bg-red-500 rounded-full animate-bounce-delay-1"></div>
+                <div className="w-2 h-2 bg-orange-500 rounded-full animate-bounce-delay-2"></div>
+                <div className="w-2 h-2 bg-rose-500 rounded-full animate-bounce-delay-3"></div>
               </div>
             </div>
 
@@ -125,16 +125,25 @@ const MenuBar = () => {
                 >
                   <a
                     href={item.href}
-                    className="menu-item-child relative flex items-center justify-center px-8 py-5 text-gray-300 rounded-2xl text-lg font-medium transition-all duration-300 overflow-hidden group/item hover:shadow-2xl transform hover:-translate-y-2 border border-gray-700/30 hover:border-gray-600/50 bg-gray-800/70 backdrop-blur-2xl"
+                    className="menu-item-child relative flex items-center justify-center px-8 py-5 text-gray-300 rounded-2xl text-lg font-medium transition-all duration-300 overflow-hidden group/item hover:shadow-2xl transform hover:-translate-y-2 border border-red-900/30 hover:border-red-700/50 bg-gray-900/50 backdrop-blur-xl"
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    {/* Animated background layers */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/0 via-purple-500/0 to-pink-500/0 group-hover/item:from-cyan-500/30 group-hover/item:via-purple-500/30 group-hover/item:to-pink-500/30 transition-all duration-500 rounded-2xl"></div>
+                    {/* Top decorative line */}
+                    <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-red-500/50 to-transparent"></div>
                     
-                    <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/80 via-purple-500/80 to-pink-500/80 translate-x-[-110%] group-hover/item:translate-x-0 transition-transform duration-500 ease-out rounded-2xl"></div>
+                    {/* Bottom decorative line */}
+                    <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-orange-500/50 to-transparent"></div>
+                    
+                    {/* Animated background layers */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-red-500/0 via-orange-500/0 to-rose-500/0 group-hover/item:from-red-500/35 group-hover/item:via-orange-500/35 group-hover/item:to-rose-500/35 transition-all duration-500 rounded-2xl"></div>
+                    
+                    <div className="absolute inset-0 bg-gradient-to-r from-red-600/90 via-orange-600/90 to-rose-600/90 translate-x-[-110%] group-hover/item:translate-x-0 transition-transform duration-500 ease-out rounded-2xl shadow-lg shadow-red-500/50"></div>
                     
                     {/* Shimmer effect */}
                     <div className="absolute inset-0 -translate-x-full group-hover/item:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent rounded-2xl"></div>
+                    
+                    {/* Pulse animation on hover */}
+                    <div className="absolute inset-0 rounded-2xl opacity-0 group-hover/item:opacity-100 group-hover/item:animate-pulse-ring"></div>
                     
                     {/* Menu item text with center alignment */}
                     <span className="relative z-10 group-hover/item:text-white transition-all duration-300 group-hover/item:font-bold group-hover/item:scale-110 text-center w-full tracking-wide">
@@ -169,10 +178,10 @@ const MenuBar = () => {
       </nav>
 
       {/* Enhanced Custom CSS for animations */}
-      <style jsx>{`
+      <style>{`
         .custom-scrollbar {
           scrollbar-width: thin;
-          scrollbar-color: rgba(99, 102, 241, 0.5) rgba(0, 0, 0, 0.1);
+          scrollbar-color: rgba(239, 68, 68, 0.6) rgba(0, 0, 0, 0.1);
         }
 
         .custom-scrollbar::-webkit-scrollbar {
@@ -185,13 +194,13 @@ const MenuBar = () => {
         }
 
         .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: linear-gradient(to bottom, #06b6d4, #8b5cf6, #ec4899);
+          background: linear-gradient(to bottom, #dc2626, #ea580c, #e11d48);
           border-radius: 10px;
           transition: all 0.3s ease;
         }
 
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: linear-gradient(to bottom, #0891b2, #7c3aed, #db2777);
+          background: linear-gradient(to bottom, #b91c1c, #c2410c, #be123c);
           transform: scale(1.1);
         }
 
@@ -236,6 +245,18 @@ const MenuBar = () => {
           40% { transform: scale(1.2); opacity: 1; }
         }
 
+        @keyframes pulse-ring {
+          0% {
+            box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
+          }
+          50% {
+            box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+          }
+          100% {
+            box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+          }
+        }
+
         .animate-slide-in-stagger {
           animation: slide-in-stagger 0.8s ease-out forwards;
         }
@@ -265,12 +286,16 @@ const MenuBar = () => {
           animation-delay: 0.4s;
         }
 
+        .animate-pulse-ring {
+          animation: pulse-ring 1.5s ease-out infinite;
+        }
+
         .menu-item-parent:hover .menu-item-child {
           transform: scale(1.02) translateY(-8px);
         }
 
         .menu-item-child:hover {
-          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(99, 102, 241, 0.3);
+          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 40px rgba(239, 68, 68, 0.4), 0 0 20px rgba(234, 88, 12, 0.3);
         }
 
         /* Prevent body scroll when menu is open */
