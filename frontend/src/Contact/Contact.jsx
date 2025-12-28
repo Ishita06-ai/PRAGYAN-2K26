@@ -19,29 +19,20 @@ function Contact() {
     {
       id: 1,
       title: "Email Address",
-      value: "contact@pragyaa.com",
+      value: "pragyaa@sggs.ac.in",
       description: "Send us an email anytime",
       icon: <Mail className="w-8 h-8 text-cyan-400" />,
-      link: "mailto:contact@pragyaa.com",
+      link: "mailto:pragyaa@sggs.ac.in",
       color: "cyan"
     },
     {
       id: 2,
       title: "Phone Number",
-      value: "+1 (555) 123-4567",
+      value: "+91 2462 228342",
       description: "Call us during business hours",
       icon: <Phone className="w-8 h-8 text-purple-400" />,
-      link: "tel:+15551234567",
+      link: "tel:+912462228342",
       color: "purple"
-    },
-    {
-      id: 3,
-      title: "Office Address",
-      value: "123 Event Street, City, State 12345",
-      description: "Visit our office location",
-      icon: <MapPin className="w-8 h-8 text-pink-400" />,
-      link: "https://maps.google.com",
-      color: "pink"
     },
     {
       id: 4,
@@ -55,12 +46,12 @@ function Contact() {
   ]
 
   const contactReasons = [
-    { id: 1, text: "Get personalized event planning assistance", icon: "🎯" },
-    { id: 2, text: "Request custom event solutions", icon: "⚡" },
-    { id: 3, text: "Explore partnership opportunities", icon: "🤝" },
-    { id: 4, text: "Get technical support and guidance", icon: "🛠️" },
+    { id: 1, text: "Get information about PRAGYAA 2026 events", icon: "🎯" },
+    { id: 2, text: "Event registration and participation queries", icon: "⚡" },
+    { id: 3, text: "Explore sponsorship and partnership opportunities", icon: "🤝" },
+    { id: 4, text: "Technical support and guidance", icon: "🛠️" },
     { id: 5, text: "Media and press inquiries", icon: "📰" },
-    { id: 6, text: "Sponsorship opportunities", icon: "💼" }
+    { id: 6, text: "Student coordinator assistance", icon: "💼" }
   ]
 
   const handleBack = () => {
@@ -205,7 +196,7 @@ function Contact() {
                           left: `${Math.random() * 100}%`,
                           animation: `particleFloat ${2 + Math.random() * 3}s infinite ease-in-out`,
                           animationDelay: `${Math.random() * 2}s`,
-                          opacity: 0.9
+                          opacity: 0.
                         }}
                       />
                     ))}
@@ -351,12 +342,17 @@ function Contact() {
                         Our Location
                       </h3>
                     </div>
-                    <div className="h-64 bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
-                      <div className="text-center">
-                        <MapPin className="w-12 h-12 text-cyan-400 mx-auto mb-2 animate-bounce" />
-                        <p className="text-gray-300 font-medium">Interactive Map</p>
-                        <p className="text-sm text-gray-400">Map integration coming soon</p>
-                      </div>
+                    <div className="h-64 md:h-80">
+                      <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3769.9097757547947!2d77.29045427586921!3d19.111613650852224!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bce29b9903d053d%3A0x2c5238a90ab55c03!2sShri%20Guru%20Gobind%20Singhji%20Institute%20of%20Engineering%20and%20Technology!5e0!3m2!1sen!2sin!4v1766939429340!5m2!1sen!2sin" 
+                        width="100%" 
+                        height="100%" 
+                        style={{ border: 0 }} 
+                        allowFullScreen="" 
+                        loading="lazy" 
+                        referrerPolicy="no-referrer-when-downgrade"
+                        title="SGGSIET Location Map"
+                      ></iframe>
                     </div>
                   </div>
                 </div>
