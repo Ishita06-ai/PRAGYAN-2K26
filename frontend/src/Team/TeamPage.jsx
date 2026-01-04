@@ -3,21 +3,20 @@ import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import Footer from "../Footer/Footer";
 import BackgroundLayer from "../components/BackgroundLayer";
+import Aditya from "./Aditya.jpg"
 
 const committees = {
   web: {
     name: "Web Committee",
     members: [
-      { name: "Luffy", role: "Founder" },
-      { name: "Monkey D. Luffy", role: "Creative Director" },
-      { name: "Luffy chan", role: "Lead Developer" },
-      { name: "Lucy", role: "UX Designer" },
-      { name: "Luffy kun", role: "Marketing Manager" },
-      { name: "Monkey chan", role: "Product Manager" }
+      { name: "Aditya Raut", role: "Lead Developer" },
+      { name: "Nandu Jadhav", role: "Co-Lead Developer" },
+      { name: "Saloni Tarone", role: "Main Developer" },
+      { name: "Amit Verma", role: "Main Developer" },
+      { name: "N/A", role: "Product Manager" }
     ],
     images: [
-      "https://ik.imagekit.io/gopichakradhar/luffy/o1.jpeg?updatedAt=1754289569411",
-      "https://ik.imagekit.io/gopichakradhar/luffy/o2.jpeg?updatedAt=1754289569307",
+      Aditya,
       "https://ik.imagekit.io/gopichakradhar/luffy/o4.jpeg?updatedAt=1754289569398",
       "https://ik.imagekit.io/gopichakradhar/luffy/o3.jpeg?updatedAt=1754289569422",
       "https://ik.imagekit.io/gopichakradhar/luffy/o5.jpeg?updatedAt=1754289569406",
